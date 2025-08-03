@@ -5,18 +5,19 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
+
 import torchaudio
+import uvicorn
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
 from loguru import logger
 from pydantic import BaseModel, Field, validator
-import uvicorn
 
+from config.settings import Settings
 from models.chatterbox_model import ChatterboxTTSModel
 from models.zonos_model import ZonosTTSModel
 from utils.audio_utils import AudioProcessor
-from utils.exceptions import ModelError, AudioProcessingError
-from config.settings import Settings
+from utils.exceptions import AudioProcessingError, ModelError
 
 
 class TTSRequest(BaseModel):

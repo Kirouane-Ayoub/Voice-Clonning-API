@@ -1,12 +1,14 @@
+import os
+import re
+
 import torch
 import torchaudio as ta
 from chatterbox.tts import ChatterboxTTS
 from pydub import AudioSegment
-import re
-import os
+
+from utils.exceptions import ModelError
 
 from .base_model import BaseTTSModel
-from utils.exceptions import ModelError
 
 
 class ChatterboxTTSModel(BaseTTSModel):
@@ -21,7 +23,7 @@ class ChatterboxTTSModel(BaseTTSModel):
         try:
             self.model = ChatterboxTTS.from_pretrained(device=self.device)
         except Exception as e:
-            raise ModelError(f"Failed to load ChatterboxTTS model: {e}")
+            raise ModelError(f"Failed to load ChatterboxTTS model: {e}") from e
 
     def generate_audio(
         self,

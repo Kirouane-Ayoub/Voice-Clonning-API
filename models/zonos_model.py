@@ -1,12 +1,14 @@
+import os
+import re
+
 import torch
 import torchaudio
-from zonos.model import Zonos
 from zonos.conditioning import make_cond_dict
-import re
-import os
+from zonos.model import Zonos
+
+from utils.exceptions import ModelError
 
 from .base_model import BaseTTSModel
-from utils.exceptions import ModelError
 
 
 class ZonosTTSModel(BaseTTSModel):
