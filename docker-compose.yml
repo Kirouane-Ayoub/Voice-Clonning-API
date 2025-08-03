@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  tts-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs:/app/logs
+      - /tmp/tts_api:/tmp/tts_api
+    environment:
+      - LOG_LEVEL=INFO
+      - MAX_WORKERS=4
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    restart: unless-stopped
